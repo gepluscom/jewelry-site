@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>玥光 YUEGUANG · 轻奢珠宝品牌</title>
+<meta name="description" content="玥光珠宝 — 以自然为灵感的轻奢饰品品牌：莫桑钻戒指、大溪地黑珍珠、永恒戒圈，为年轻而闪耀。">
+<!-- ============================================================
+  品牌展示站 · 纯静态单文件
+  · 改品牌名：搜索 YUEGUANG / 玥光 全文替换即可
+  · 改邮箱：搜索 hello@example.com 替换为你的邮箱
+  · 改价格：搜索 ¥ 替换为实际价格
+  部署：推送到 GitHub → Cloudflare Pages 导入仓库即可上线
+============================================================ -->
+<style>
+  :root{
+    --ivory:#faf7f1; --ivory-deep:#f3ede1;
+    --ink:#211b13; --muted:#8a7d6a;
+    --gold:#b08d57; --gold-soft:#d9c49c;
+    --dark:#16110b;
+    --serif:"Songti SC","STSong","Noto Serif SC","SimSun",Georgia,"Times New Roman",serif;
+    --sans:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,-apple-system,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--sans);color:var(--ink);background:var(--ivory);line-height:1.8;-webkit-font-smoothing:antialiased}
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+  .serif{font-family:var(--serif)}
+  .eyebrow{font-size:12px;letter-spacing:.42em;color:var(--gold);text-transform:uppercase;margin-bottom:18px}
+  .sec-title{font-family:var(--serif);font-size:clamp(28px,4vw,44px);font-weight:500;letter-spacing:.06em;line-height:1.35}
+  .sec-sub{color:var(--muted);margin-top:14px;max-width:640px}
+
+  /* ---- 导航 ---- */
+  header{position:fixed;inset:0 0 auto 0;z-index:50;transition:background .35s,box-shadow .35s}
+  header.scrolled{background:rgba(250,247,241,.92);backdrop-filter:blur(12px);box-shadow:0 1px 0 rgba(33,27,19,.08)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .logo{font-family:var(--serif);font-size:22px;letter-spacing:.28em;color:#fff;transition:color .35s}
+  header.scrolled .logo{color:var(--ink)}
+  .logo small{display:block;font-family:var(--sans);font-size:10px;letter-spacing:.5em;color:var(--gold-soft);margin-top:2px}
+  header.scrolled .logo small{color:var(--gold)}
+  .nav-links{display:flex;gap:36px;font-size:14px;letter-spacing:.18em;color:#fff;transition:color .35s}
+  header.scrolled .nav-links{color:var(--ink)}
+  .nav-links a{position:relative;padding:4px 0}
+  .nav-links a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--gold);transition:width .3s}
+  .nav-links a:hover::after{width:100%}
+  .burger{display:none;background:none;border:0;cursor:pointer;flex-direction:column;gap:6px;padding:8px}
+  .burger span{display:block;width:24px;height:2px;background:#fff;transition:.3s}
+  header.scrolled .burger span{background:var(--ink)}
+
+  /* ---- Hero ---- */
+  .hero{min-height:100svh;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;
+    background:linear-gradient(rgba(20,14,8,.42),rgba(20,14,8,.55)),url("assets/hero.webp") center/cover no-repeat}
+  .hero-inner{padding:120px 24px 80px;max-width:860px}
+  .hero .eyebrow{color:var(--gold-soft)}
+  .hero h1{font-family:var(--serif);font-size:clamp(40px,7vw,76px);font-weight:500;letter-spacing:.12em;line-height:1.4;margin:10px 0 22px}
+  .hero p{color:rgba(255,255,255,.82);font-size:16px;letter-spacing:.1em;max-width:600px;margin:0 auto 40px}
+  .btn{display:inline-block;padding:15px 44px;font-size:13px;letter-spacing:.32em;border:1px solid var(--gold-soft);color:#fff;transition:.35s;cursor:pointer;background:transparent}
+  .btn:hover{background:var(--gold);border-color:var(--gold);color:#fff}
+  .btn.solid{background:var(--gold);border-color:var(--gold)}
+  .btn.solid:hover{background:#9a7845}
+  .btn-row{display:flex;gap:18px;justify-content:center;flex-wrap:wrap}
+  .scroll-hint{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);font-size:11px;letter-spacing:.4em;color:rgba(255,255,255,.6)}
+  .scroll-hint::after{content:"";display:block;width:1px;height:44px;background:linear-gradient(rgba(255,255,255,.6),transparent);margin:12px auto 0}
+
+  /* ---- 理念条 ---- */
+  .values{background:var(--dark);color:#efe7d8;padding:72px 0}
+  .values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;text-align:center}
+  .values h3{font-family:var(--serif);font-size:20px;letter-spacing:.2em;margin-bottom:12px;color:var(--gold-soft)}
+  .values p{font-size:14px;color:rgba(239,231,216,.66);letter-spacing:.06em}
+
+  /* ---- 通用区块 ---- */
+  section.block{padding:110px 0}
+  .center{text-align:center}
+  .center .sec-sub{margin-left:auto;margin-right:auto}
+
+  /* ---- 系列 ---- */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:64px}
+  .card{background:#fff;border:1px solid rgba(33,27,19,.07);overflow:hidden;transition:transform .4s,box-shadow .4s}
+  .card:hover{transform:translateY(-8px);box-shadow:0 30px 60px -20px rgba(33,27,19,.22)}
+  .card .ph{aspect-ratio:1/1;overflow:hidden;background:var(--ivory-deep)}
+  .card .ph img{width:100%;height:100%;object-fit:cover;transition:transform .8s}
+  .card:hover .ph img{transform:scale(1.06)}
+  .card-body{padding:28px 28px 32px;text-align:center}
+  .card-body h3{font-family:var(--serif);font-size:21px;letter-spacing:.14em;margin-bottom:10px}
+  .card-body p{font-size:13.5px;color:var(--muted);letter-spacing:.04em;min-height:72px}
+  .price{font-family:var(--serif);color:var(--gold);font-size:17px;letter-spacing:.1em;margin:14px 0 20px}
+  .btn-ghost{display:inline-block;padding:12px 34px;font-size:12px;letter-spacing:.3em;border:1px solid var(--ink);transition:.3s}
+  .btn-ghost:hover{background:var(--ink);color:#fff}
+
+  /* ---- 工艺（深色） ---- */
+  .craft{background:var(--dark);color:#efe7d8}
+  .craft .sec-sub{color:rgba(239,231,216,.6)}
+  .craft-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;margin-top:64px}
+  .craft-item{border-top:1px solid rgba(217,196,156,.35);padding-top:26px}
+  .craft-item .num{font-family:var(--serif);color:var(--gold-soft);font-size:15px;letter-spacing:.3em}
+  .craft-item h3{font-family:var(--serif);font-size:18px;letter-spacing:.16em;margin:14px 0 10px}
+  .craft-item p{font-size:13.5px;color:rgba(239,231,216,.6);letter-spacing:.04em}
+
+  /* ---- 定制流程 ---- */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:64px;counter-reset:step}
+  .step{position:relative;padding:34px 26px;background:#fff;border:1px solid rgba(33,27,19,.07)}
+  .step::before{counter-increment:step;content:"0" counter(step);font-family:var(--serif);font-size:15px;letter-spacing:.3em;color:var(--gold)}
+  .step h3{font-family:var(--serif);font-size:18px;letter-spacing:.14em;margin:16px 0 10px}
+  .step p{font-size:13.5px;color:var(--muted)}
+
+  /* ---- 关于 ---- */
+  .about{background:var(--ivory-deep)}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
+  .about-img{overflow:hidden}
+  .about-img img{width:100%;aspect-ratio:4/5;object-fit:cover}
+  .stats{display:flex;gap:44px;margin-top:36px}
+  .stats b{display:block;font-family:var(--serif);font-size:32px;color:var(--gold);font-weight:500}
+  .stats span{font-size:12px;letter-spacing:.24em;color:var(--muted)}
+
+  /* ---- 联系 ---- */
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;margin-top:60px;align-items:start}
+  .contact-info p{font-size:14px;color:var(--muted);letter-spacing:.06em;margin-bottom:22px}
+  .contact-info h4{font-family:var(--serif);font-size:16px;letter-spacing:.24em;margin:26px 0 8px;color:var(--ink)}
+  form{display:grid;gap:16px}
+  input,textarea{font-family:var(--sans);font-size:14px;padding:15px 18px;border:1px solid rgba(33,27,19,.16);background:#fff;color:var(--ink);width:100%;letter-spacing:.04em}
+  input:focus,textarea:focus{outline:1px solid var(--gold);border-color:var(--gold)}
+  textarea{min-height:130px;resize:vertical}
+  form .btn{color:var(--ink);border-color:var(--ink);justify-self:start}
+  form .btn:hover{color:#fff}
+
+  footer{background:var(--dark);color:rgba(239,231,216,.55);padding:54px 0;text-align:center;font-size:12px;letter-spacing:.22em}
+  footer .flogo{font-family:var(--serif);font-size:20px;letter-spacing:.3em;color:#efe7d8;margin-bottom:14px}
+
+  /* ---- 动效 ---- */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s ease}
+  .reveal.visible{opacity:1;transform:none}
+
+  @media(max-width:900px){
+    .values-grid,.cards,.craft-grid,.steps{grid-template-columns:1fr 1fr}
+    .about-grid,.contact-grid{grid-template-columns:1fr;gap:44px}
+  }
+  @media(max-width:640px){
+    .nav-links{position:fixed;inset:72px 0 auto 0;background:rgba(250,247,241,.98);flex-direction:column;align-items:center;gap:0;color:var(--ink);max-height:0;overflow:hidden;transition:max-height .4s}
+    .nav-links.open{max-height:320px}
+    .nav-links a{padding:18px 0;width:100%;text-align:center;border-top:1px solid rgba(33,27,19,.06)}
+    header.scrolled .nav-links{color:var(--ink)}
+    .burger{display:flex}
+    .values-grid,.cards,.craft-grid,.steps{grid-template-columns:1fr}
+    section.block{padding:80px 0}
+  }
+</style>
+</head>
+<body>
+
+<header id="header">
+  <div class="wrap nav">
+    <a class="logo" href="#top">YUEGUANG<small>玥光珠宝</small></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#collections">系列</a>
+      <a href="#craft">工艺</a>
+      <a href="#custom">定制</a>
+      <a href="#about">关于</a>
+      <a href="#contact">联系</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="菜单"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- Hero -->
+<div class="hero" id="top">
+  <div class="hero-inner">
+    <div class="eyebrow">Fine Jewelry · Since 2026</div>
+    <h1>以自然为灵感<br>为闪耀而生</h1>
+    <p>莫桑钻 · 大溪地黑珍珠 · 18K 金 —— 献给 18–28 岁，热爱生活、忠于自我的你</p>
+    <div class="btn-row">
+      <a class="btn solid" href="#collections">浏览系列</a>
+      <a class="btn" href="#custom">专属定制</a>
+    </div>
+  </div>
+  <div class="scroll-hint">SCROLL</div>
+</div>
+
+<!-- 理念 -->
+<div class="values">
+  <div class="wrap values-grid">
+    <div class="reveal"><h3>真材实料</h3><p>D 色 VVS 莫桑钻 · AAA 级大溪地珍珠<br>每一颗都可溯源</p></div>
+    <div class="reveal"><h3>年轻设计</h3><p>从植物、海洋与星空汲取灵感<br>拒绝千篇一律的沉闷</p></div>
+    <div class="reveal"><h3>安心承诺</h3><p>终身保修 · 无理由退换<br>让每一次佩戴都无后顾之忧</p></div>
+  </div>
+</div>
+
+<!-- 系列 -->
+<section class="block" id="collections">
+  <div class="wrap">
+    <div class="center reveal">
+      <div class="eyebrow">Collections</div>
+      <h2 class="sec-title">甄选系列</h2>
+      <p class="sec-sub">三个核心系列，覆盖日常通勤、约会与重要时刻。全部支持刻字与尺寸定制。</p>
+    </div>
+    <div class="cards">
+      <article class="card reveal">
+        <div class="ph"><img src="assets/ring-moissanite.webp" alt="莫桑钻订婚戒指" loading="lazy"></div>
+        <div class="card-body">
+          <h3>莫桑钻戒指系列</h3>
+          <p>枕形、祖母绿形、椭圆形多切割可选，火彩媲美钻石，通过钻石测试笔检测，附 GRA 证书。</p>
+          <div class="price">¥1,299 起</div>
+          <a class="btn-ghost" href="#contact">咨询定制</a>
+        </div>
+      </article>
+      <article class="card reveal">
+        <div class="ph"><img src="assets/earrings-pearl.webp" alt="大溪地黑珍珠耳钉" loading="lazy"></div>
+        <div class="card-body">
+          <h3>大溪地黑珍珠系列</h3>
+          <p>源自波利尼西亚纯净泻湖，天然孔雀绿晕彩，8–10mm 正圆高光泽，18K 金镶嵌。</p>
+          <div class="price">¥2,199 起</div>
+          <a class="btn-ghost" href="#contact">咨询定制</a>
+        </div>
+      </article>
+      <article class="card reveal">
+        <div class="ph"><img src="assets/band-eternity.webp" alt="莫桑钻永恒戒圈" loading="lazy"></div>
+        <div class="card-body">
+          <h3>永恒戒圈系列</h3>
+          <p>整圈密镶圆钻形莫桑钻，D 色 VVS1，925 银镀 18K 金，婚礼、纪念日的经典之选。</p>
+          <div class="price">¥899 起</div>
+          <a class="btn-ghost" href="#contact">咨询定制</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 工艺 -->
+<section class="block craft" id="craft">
+  <div class="wrap">
+    <div class="center reveal">
+      <div class="eyebrow">Craftsmanship</div>
+      <h2 class="sec-title">匠心工艺</h2>
+      <p class="sec-sub">从设计稿到成品，每一件作品都经过严苛品控，坚固耐用、亲肤低敏。</p>
+    </div>
+    <div class="craft-grid">
+      <div class="craft-item reveal"><div class="num">01</div><h3>严选宝石</h3><p>莫桑钻坚持 D 色、VVS 净度、Excellent 切工，火彩与硬度（9.25）经久不衰。</p></div>
+      <div class="craft-item reveal"><div class="num">02</div><h3>珍稀珍珠</h3><p>大溪地黑珍珠 100% 天然颜色，未经任何改色处理，颗颗正圆、强光泽。</p></div>
+      <div class="craft-item reveal"><div class="num">03</div><h3>贵金属镶嵌</h3><p>18K 金 / 925 银精工镶嵌，无铅无镉无镍，敏感肌亦可安心佩戴。</p></div>
+      <div class="craft-item reveal"><div class="num">04</div><h3>终身服务</h3><p>终身保修、免费改圈与保养服务，让珠宝陪伴每一个重要人生阶段。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 定制流程 -->
+<section class="block" id="custom">
+  <div class="wrap">
+    <div class="center reveal">
+      <div class="eyebrow">Bespoke</div>
+      <h2 class="sec-title">专属定制流程</h2>
+      <p class="sec-sub">把你的想法变成独一无二的珠宝，设计师全程一对一沟通。</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><h3>需求沟通</h3><p>告诉我们你的预算、风格偏好与灵感图片，设计师为你出谋划策。</p></div>
+      <div class="step reveal"><h3>设计建模</h3><p>输出 CAD 电脑建模图，细节反复确认，直到你完全满意。</p></div>
+      <div class="step reveal"><h3>蜡模铸造</h3><p>3D 蜡模打版、贵金属浇铸，老师傅手工打磨抛光。</p></div>
+      <div class="step reveal"><h3>质检交付</h3><p>严苛质检后附证书顺丰发出，支持终身保修与改圈。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 关于 -->
+<section class="block about" id="about">
+  <div class="wrap about-grid">
+    <div class="about-img reveal"><img src="assets/band-eternity.webp" alt="玥光珠宝工艺" loading="lazy"></div>
+    <div class="reveal">
+      <div class="eyebrow">Our Story</div>
+      <h2 class="sec-title">关于玥光</h2>
+      <p class="sec-sub" style="margin-top:20px">玥，神珠也。我们相信，每一位年轻女性都值得拥有一件「不将就」的珠宝——设计上忠于自我，品质上毫不妥协，价格上诚实透明。<br><br>品牌设计团队从自然万物中汲取灵感：植物的生机、海洋的深邃、星空的梦幻，都被凝练进每一件作品。我们坚持可持续发展理念，选用培育莫桑钻与可溯源珍珠，让美丽不以伤害自然为代价。</p>
+      <div class="stats">
+        <div><b>100%</b><span>天然材质</span></div>
+        <div><b>终身</b><span>保修承诺</span></div>
+        <div><b>1v1</b><span>定制服务</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 联系 -->
+<section class="block" id="contact">
+  <div class="wrap">
+    <div class="center reveal">
+      <div class="eyebrow">Contact</div>
+      <h2 class="sec-title">联系我们</h2>
+      <p class="sec-sub">定制咨询、批发合作、媒体垂询，欢迎留言，我们将在 24 小时内回复。</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <h4>电子邮箱</h4><p>hello@example.com</p>
+        <h4>微信客服</h4><p>YueGuang-Jewelry（9:00–21:00）</p>
+        <h4>工作室</h4><p>中国 · 深圳（接受预约到店试戴）</p>
+      </div>
+      <form class="reveal" id="contactForm">
+        <input type="text" id="fName" placeholder="您的称呼" required>
+        <input type="email" id="fMail" placeholder="电子邮箱" required>
+        <textarea id="fMsg" placeholder="想咨询哪款产品？或描述您的定制想法…" required></textarea>
+        <button class="btn" type="submit">发送留言</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="flogo">YUEGUANG · 玥光珠宝</div>
+  <div>© 2026 YUEGUANG Jewelry · 以自然为灵感，为闪耀而生</div>
+</footer>
+
+<script>
+  // 导航滚动效果
+  const header = document.getElementById('header');
+  addEventListener('scroll', () => header.classList.toggle('scrolled', scrollY > 40), {passive:true});
+  header.classList.toggle('scrolled', scrollY > 40);
+
+  // 移动端菜单
+  const burger = document.getElementById('burger'), navLinks = document.getElementById('navLinks');
+  burger.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // 滚动渐入
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+  }), {threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // 表单 → 邮件
+  document.getElementById('contactForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const n = document.getElementById('fName').value.trim(),
+          m = document.getElementById('fMail').value.trim(),
+          t = document.getElementById('fMsg').value.trim();
+    location.href = 'mailto:hello@example.com'
+      + '?subject=' + encodeURIComponent('官网留言 - ' + n)
+      + '&body=' + encodeURIComponent('称呼：' + n + '\n邮箱：' + m + '\n\n' + t);
+  });
+</script>
+</body>
+</html>
